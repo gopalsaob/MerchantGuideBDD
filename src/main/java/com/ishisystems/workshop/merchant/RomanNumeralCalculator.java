@@ -27,7 +27,7 @@ public class RomanNumeralCalculator {
         Integer result = 0;
         RomanSymbol previousSymbol = null;
         for (RomanSymbol romanSymbol : inputAsSymbols) {
-            if (previousSymbol != null && (previousSymbol.getValue() < romanSymbol.getValue())) {
+            if (isPreviousSymbolSmallerThanCurrentSymbol(previousSymbol, romanSymbol)) {
                 result += (romanSymbol.getValue() - (2 * previousSymbol.getValue()));
             } else {
                 result += romanSymbol.getValue();
@@ -35,6 +35,10 @@ public class RomanNumeralCalculator {
             previousSymbol = romanSymbol;
         }
         return result;
+    }
+
+    private boolean isPreviousSymbolSmallerThanCurrentSymbol(RomanSymbol previousSymbol, RomanSymbol romanSymbol) {
+        return previousSymbol != null && (previousSymbol.getValue() < romanSymbol.getValue());
     }
 
     private void validate(List<RomanSymbolWithTypeInformation> symbols, SymbolsVisitor visitor) {
